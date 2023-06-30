@@ -6,7 +6,7 @@
 // cron schedule
 var cron = require('node-cron');
 
-cron.schedule('0 * * * *', () => {
+cron.schedule('*/15 * * * *', () => {
 	// import log
 	var log = require('npmlog');
 
@@ -62,7 +62,7 @@ cron.schedule('0 * * * *', () => {
 				setTimeout(function () {
 					log.info('AUTOUPDATE', 'Rebooting device now...');
 
-					// retuire('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
+					require('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
 				}, 2000);
 			}
 		})
