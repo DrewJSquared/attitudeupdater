@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "download-git-repo": "^3.0.2"
+  }
+}
