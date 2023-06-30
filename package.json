@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "download-git-repo": "^3.0.2"
+    "download-git-repo": "^3.0.2",
+    "npmlog": "^7.0.1"
   }
 }
