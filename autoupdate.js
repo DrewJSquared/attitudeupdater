@@ -11,72 +11,9 @@ const download = require('download-git-repo');
 
 
 // cron update every 15 minutes
-// cron.schedule('*/15 * * * *', () => {
-// 	log.info('AUTOUPDATE', 'Automatic Update Script for Attitude Control Device Firmware');
-// 	log.info('AUTOUPDATE', 'Copyright 2023 Drew Shipps, J Squared Systems');
-
-
-	
-
-// 			setTimeout(function () {
-// 				// remove old backup
-// 				fs.exists('backup/AttitudeControl', function(exists) {
-// 					if (exists) {
-// 						log.info('AUTOUPDATE', 'Backup code found, deleting now...');
-// 						fs.rmSync('backup/AttitudeControl', { recursive: true, force: true });
-// 						log.info('AUTOUPDATE', 'Deleted backup code.');
-// 					} else {
-// 						log.info('AUTOUPDATE', 'No backup code found.');
-// 					}
-// 				});
-
-
-// 				// move current to backup
-// 				setTimeout(function () {
-// 					fs.exists('AttitudeControl', function(exists) {
-// 						if (exists) {
-// 							log.info('AUTOUPDATE', 'Old code found, moving to backup folder...');
-// 							fs.rename('AttitudeControl', 'backup/AttitudeControl', function (err) {
-// 								if (err) {
-// 									log.error('AUTOUPDATE', err.message);
-// 								} else {
-// 									log.info('AUTOUPDATE', 'Moved old code to backup folder.');
-// 								}
-// 							});
-// 						} else {
-// 							log.info('AUTOUPDATE', 'No old code found.');
-// 						}
-// 					});
-// 				}, 1000);
-
-
-// 				// move new to current
-// 				setTimeout(function () {
-// 					log.info('AUTOUPDATE', 'Moving new code to current folder...');
-
-// 					fs.rename('./tmp/AttitudeControl', './AttitudeControl', function (err) {
-// 						if (err) {
-// 							log.error('AUTOUPDATE', err.message);
-// 						} else {
-// 							log.info('AUTOUPDATE', 'Moved new code to current folder.');
-// 							fs.rmSync('./tmp', { recursive: true, force: true });
-// 							log.info('AUTOUPDATE', 'Removed tmp folder.');
-// 						}
-// 					});
-// 				}, 2000);
-
-
-// 				// reboot
-// 				setTimeout(function () {
-// 					log.info('AUTOUPDATE', 'Rebooting device now...');
-
-// 					// require('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
-// 				}, 3000);
-
-// 			}, 1000);
-// 		}
-// 	});
-// });
+cron.schedule('*/15 * * * *', () => {
+	updater();
+});
 
 
 // variables
@@ -90,6 +27,9 @@ var moveNewToCurrentSuccess = false;
 
 
 function updater() {
+	log.info('AUTOUPDATE', 'Automatic Update Script for Attitude Control Device Firmware');
+	log.info('AUTOUPDATE', 'Copyright 2023 Drew Shipps, J Squared Systems');
+
 	updaterCounter++;
 	if (updaterCounter > 5) {
 		log.error('AUTOUPDATE', 'This is sad. Autoupdaer attempted to run 5 times, but has somehow failed every single time! Unfortunately, this means this device will become offline until the next autoupdate cycle. Sorry!');
