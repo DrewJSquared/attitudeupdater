@@ -26,6 +26,7 @@ var moveCurrentToBackupSuccess = false;
 var moveNewToCurrentSuccess = false;
 
 
+// primary update function
 function updater() {
 	log.info('AUTOUPDATE', 'Automatic Update Script for Attitude Control Device Firmware');
 	log.info('AUTOUPDATE', 'Copyright 2023 Drew Shipps, J Squared Systems');
@@ -97,9 +98,6 @@ function updater() {
 		}
 	}, 5000);
 }
-
-
-updater();
 
 
 
