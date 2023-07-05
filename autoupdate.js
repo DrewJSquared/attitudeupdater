@@ -89,9 +89,9 @@ function updater() {
 								restart();
 							});
 						}
-					}, 2000);
-				}, 2000);
-			}, 2000);
+					}, 1000);
+				}, 1000);
+			}, 1000);
 		} else {
 			log.error('AUTOUPDATE', 'Download new code timed out!');
 			restart();
@@ -246,6 +246,6 @@ function restart() {
 	setTimeout(function () {
 		log.info('AUTOUPDATE', 'Autoupdate complete. Rebooting device now...');
 
-		// require('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
+		require('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
 	}, 3000);
 }
