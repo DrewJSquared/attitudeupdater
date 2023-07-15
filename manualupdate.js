@@ -9,10 +9,6 @@ var fs = require('fs');
 const download = require('download-git-repo');
 
 
-// run once immediately
-updater();
-
-
 // variables
 var updaterCounter = 0;
 var downloadSuccess = false;
@@ -22,7 +18,7 @@ var backupCodeFound = false;
 var moveCurrentToBackupSuccess = false;
 var moveNewToCurrentSuccess = false;
 
-var DOWNLOAD_TIMEOUT_LENGTH = 15000;
+const DOWNLOAD_TIMEOUT_LENGTH = 5000;
 
 
 // primary update function
@@ -43,7 +39,7 @@ function updater() {
 		}
 	});
 
-	// after 5 seconds proceed
+	// after 15 seconds proceed
 	setTimeout(function () {
 		downloadTimedOut = true;
 
@@ -97,6 +93,9 @@ function updater() {
 		}
 	}, DOWNLOAD_TIMEOUT_LENGTH);
 }
+
+// run once immediately
+updater();
 
 
 
@@ -243,10 +242,4 @@ function revertBackupToCurrent(callback) {
 // restart - reboot device
 function restart() {
 	log.info('AUTOUPDATE', 'MANUAL update complete');
-
-	// setTimeout(function () {
-	// 	log.info('AUTOUPDATE', 'Autoupdate complete. Rebooting device now...');
-
-	// 	require('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
-	// }, 3000);
 }
