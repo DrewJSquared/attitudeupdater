@@ -1,19 +1,16 @@
-// autoupdate.js
-// automatic updater script for Attitude Control software
+// manualudpate.js
+// manual updater script for Attitude Control software (does not restart device)
 // copyright 2023 Drew Shipps, J Squared Systems
 
 
 // imports
 var log = require('npmlog');
-var cron = require('node-cron');
 var fs = require('fs');
 const download = require('download-git-repo');
 
 
-// cron update every 15 minutes
-cron.schedule('*/15 * * * *', () => {
-	updater();
-});
+// run once immediately
+updater();
 
 
 // variables
@@ -30,7 +27,7 @@ var DOWNLOAD_TIMEOUT_LENGTH = 15000;
 
 // primary update function
 function updater() {
-	log.info('AUTOUPDATE', 'Automatic Update Script for Attitude Control Device Firmware');
+	log.info('AUTOUPDATE', 'MANUAL Update Script for Attitude Control Device Firmware');
 	log.info('AUTOUPDATE', 'Copyright 2023 Drew Shipps, J Squared Systems');
 
 	updaterCounter++;
@@ -245,9 +242,11 @@ function revertBackupToCurrent(callback) {
 
 // restart - reboot device
 function restart() {
-	setTimeout(function () {
-		log.info('AUTOUPDATE', 'Autoupdate complete. Rebooting device now...');
+	log.info('AUTOUPDATE', 'MANUAL update complete');
 
-		require('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
-	}, 3000);
+	// setTimeout(function () {
+	// 	log.info('AUTOUPDATE', 'Autoupdate complete. Rebooting device now...');
+
+	// 	require('child_process').exec('sudo /sbin/shutdown -r 1', function (msg) { console.log(msg) });
+	// }, 3000);
 }
