@@ -18,7 +18,7 @@ var backupCodeFound = false;
 var moveCurrentToBackupSuccess = false;
 var moveNewToCurrentSuccess = false;
 
-const DOWNLOAD_TIMEOUT_LENGTH = 5000;
+const DOWNLOAD_TIMEOUT_LENGTH = 15000;
 
 
 // primary update function

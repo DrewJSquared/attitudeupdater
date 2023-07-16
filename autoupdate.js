@@ -10,8 +10,8 @@ var fs = require('fs');
 const download = require('download-git-repo');
 
 
-// cron update every 15 minutes
-cron.schedule('*/15 * * * *', () => {
+// cron update every night at 3am
+cron.schedule('0 3 * * *', () => {
 	updater();
 });
 
