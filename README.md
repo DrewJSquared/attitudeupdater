@@ -15,3 +15,29 @@ Once this script finishes, open a new terminal window so NVM will take effect.
 
 ## Setup PM2 Processes
 `cd ~/Documents/attitude/AttitudeControl && pm2 start AttitudeControl.js && cd ~/Documents/attitude && pm2 start autoupdate.js && pm2 save && pm2 startup`
+
+## Setup SSH
+Install autossh & test connection: `sudo apt install autossh && autossh -R attitudecontrol-00100XX:22:localhost:22 serveo.net`
+(Be sure to change the serial number!)
+
+Setup service file: `sudo nano /etc/systemd/system/attitudessh.service`
+
+Copy this into the new file: 
+```
+[Unit]
+Description=Attitude SSH
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=pi
+ExecStart=autossh -R attitudecontrol-00100XX:22:localhost:22 serveo.net
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Start service: `systemctl start attitudessh.service && systemctl enable attitudessh.service`
