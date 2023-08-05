@@ -10,7 +10,7 @@ var fs = require('fs');
 const download = require('download-git-repo');
 
 
-// cron update every night at 3am
+// cron update every night at 3am: 0 3 * * *
 cron.schedule('0 3 * * *', () => {
 	updater();
 });
@@ -20,12 +20,13 @@ cron.schedule('0 3 * * *', () => {
 var updaterCounter = 0;
 var downloadSuccess = false;
 var downloadTimedOut = false;
+var downloadFinishedFunctionRunning = false;
 var currentCodeFound = false;
 var backupCodeFound = false;
 var moveCurrentToBackupSuccess = false;
 var moveNewToCurrentSuccess = false;
 
-var DOWNLOAD_TIMEOUT_LENGTH = 15000;
+var DOWNLOAD_TIMEOUT_LENGTH = 60000;
 
 
 // primary update function
@@ -43,11 +44,30 @@ function updater() {
 	downloadNewCode(function () {
 		if (!downloadTimedOut) {
 			downloadSuccess = true;
+
+			downloadFinished();
 		}
 	});
 
-	// after 5 seconds proceed
+	// after timeout interval passes, run finished function anyway
 	setTimeout(function () {
+		downloadFinished();
+	}, DOWNLOAD_TIMEOUT_LENGTH);
+}
+
+
+
+
+
+
+
+
+// downloadFinished - once the download is finished or timed out, process code and update files
+function downloadFinished() {
+	if (!downloadFinishedFunctionRunning) {
+		downloadFinishedFunctionRunning = true;
+		// this ensures the function will only be called once
+
 		downloadTimedOut = true;
 
 		if (downloadSuccess) {
@@ -98,9 +118,8 @@ function updater() {
 			log.error('AUTOUPDATE', 'Download new code timed out!');
 			restart();
 		}
-	}, DOWNLOAD_TIMEOUT_LENGTH);
+	}
 }
-
 
 
 

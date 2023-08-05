@@ -13,17 +13,18 @@ const download = require('download-git-repo');
 var updaterCounter = 0;
 var downloadSuccess = false;
 var downloadTimedOut = false;
+var downloadFinishedFunctionRunning = false;
 var currentCodeFound = false;
 var backupCodeFound = false;
 var moveCurrentToBackupSuccess = false;
 var moveNewToCurrentSuccess = false;
 
-const DOWNLOAD_TIMEOUT_LENGTH = 15000;
+const DOWNLOAD_TIMEOUT_LENGTH = 60000;
 
 
 // primary update function
 function updater() {
-	log.info('AUTOUPDATE', 'MANUAL Update Script for Attitude Control Device Firmware');
+	log.info('AUTOUPDATE', 'Automatic Update Script for Attitude Control Device Firmware');
 	log.info('AUTOUPDATE', 'Copyright 2023 Drew Shipps, J Squared Systems');
 
 	updaterCounter++;
@@ -36,11 +37,33 @@ function updater() {
 	downloadNewCode(function () {
 		if (!downloadTimedOut) {
 			downloadSuccess = true;
+
+			downloadFinished();
 		}
 	});
 
-	// after 15 seconds proceed
+	// after timeout interval passes, run finished function anyway
 	setTimeout(function () {
+		downloadFinished();
+	}, DOWNLOAD_TIMEOUT_LENGTH);
+}
+
+
+// run once immediately
+updater();
+
+
+
+
+
+
+
+// downloadFinished - once the download is finished or timed out, process code and update files
+function downloadFinished() {
+	if (!downloadFinishedFunctionRunning) {
+		downloadFinishedFunctionRunning = true;
+		// this ensures the function will only be called once
+
 		downloadTimedOut = true;
 
 		if (downloadSuccess) {
@@ -91,12 +114,8 @@ function updater() {
 			log.error('AUTOUPDATE', 'Download new code timed out!');
 			restart();
 		}
-	}, DOWNLOAD_TIMEOUT_LENGTH);
+	}
 }
-
-// run once immediately
-updater();
-
 
 
 
