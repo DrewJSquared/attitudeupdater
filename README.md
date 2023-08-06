@@ -49,5 +49,7 @@ Start service: `systemctl start attitudessh.service && systemctl enable attitude
 
 ## FINAL STEP: TESTING
 Switch to console mode: `sudo raspi-config` > System Options > Boot / Auto Login > Console Autologin > Reboot Now
+
 Update device ID/Serial Number: `cd Documents` then `cd attitude` then `nano id.json` then change ID and Serial Number then `cntrl-x  y  enter`
+
 Then double check SSH from laptop and device status on website.
