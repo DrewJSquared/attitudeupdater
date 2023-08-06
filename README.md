@@ -35,7 +35,7 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
-User=pi
+User=attitude
 ExecStart=autossh -R attitudecontrol-00100XX:22:localhost:22 serveo.net
 
 [Install]
