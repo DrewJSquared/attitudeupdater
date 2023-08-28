@@ -7,6 +7,7 @@ cd ~/Documents && curl -L -O https://github.com/drewjsquared/attitudeupdater/arc
 
 ## Install NVM
 ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash ```
+
 Once this script finishes, open a new terminal window so NVM will take effect. 
 
 ## Install NodeJS, NPM, & PM2
