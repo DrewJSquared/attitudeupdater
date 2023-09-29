@@ -65,7 +65,10 @@ WantedBy=multi-user.target
 ```
 (Be sure to change the serial number!)
 
-Start service: ```systemctl start attitudessh.service && systemctl enable attitudessh.service```
+Start service: 
+```
+systemctl start attitudessh.service && systemctl enable attitudessh.service
+```
 
 
 
