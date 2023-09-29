@@ -2,7 +2,7 @@
 
 ## Chrome Install:
 ```
-sudo apt update && sudo apt full-upgrade && sudo apt install chromium-browser -y
+sudo apt update && sudo apt full-upgrade -y && sudo apt install chromium-browser -y
 ```
 
 ## Initial download:
